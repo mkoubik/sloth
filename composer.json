@@ -1,0 +1,19 @@
+{
+    "name": "mkoubik/sloth",
+    "authors": [
+        {
+            "name": "Matej Koubik",
+            "email": "matej@koubik.name"
+        }
+    ],
+    "require": {
+    },
+    "require-dev": {
+        "nette/tester": "~0.9.5"
+    },
+    "autoload": {
+        "psr-0": {
+            "Sloth\\": "src/"
+        }
+    }
+}
