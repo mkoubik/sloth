@@ -2,6 +2,6 @@
 
 require __DIR__ . '/bootstrap.php';
 
-Assert::exception(function () {
+Assert::throws(function () {
     new Sloth\LazyIterator('not callable');
-}, 'Sloth\InvalidArgumentException');
+}, TypeError::class);

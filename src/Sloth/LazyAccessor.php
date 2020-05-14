@@ -1,56 +1,78 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sloth;
 
-class LazyAccessor
+/**
+ * @template T
+ */
+final class LazyAccessor
 {
-    /** @var callable */
+    /** @var callable(): object */
     private $callback;
 
+    /** @var ?object */
     private $object;
 
-    public function __construct($callback)
+    /**
+     * @param callable(): object $callback
+     */
+    public function __construct(callable $callback)
     {
-        if (!is_callable($callback)) {
-            throw new InvalidArgumentException();
-        }
         $this->callback = $callback;
     }
 
-    public function __get($name)
+    /**
+     * @return mixed
+     */
+    public function __get(string $name)
     {
-        $this->initialize();
-        return $this->object->$name;
+        return $this->getObject()->$name;
     }
 
-    public function __set($name, $value)
+    /**
+     * @param mixed $value
+     */
+    public function __set(string $name, $value): void
     {
-        $this->initialize();
-        return $this->object->$name = $value;
+        $this->getObject()->$name = $value;
     }
 
-    public function __isset($name)
+    public function __isset(string $name): bool
     {
-        $this->initialize();
-        return isset($this->object->$name);
+        return isset($this->getObject()->$name);
     }
 
-    public function __unset($name)
+    public function __unset(string $name): void
     {
-        $this->initialize();
-        unset($this->object->$name);
+        unset($this->getObject()->$name);
     }
 
-    public function __call($name, array $arguments)
+    /**
+     * @param mixed[] $arguments
+     * @return mixed
+     */
+    public function __call(string $name, array $arguments)
     {
-        $this->initialize();
-        return call_user_func_array(array($this->object, $name), $arguments);
+        $callable = [$this->getObject(), $name];
+
+        if (!is_callable($callable)) {
+            throw new \TypeError(sprintf('class \'%s\' does not have method \'%s\'', static::class, $name));
+        }
+
+        return call_user_func_array($callable, $arguments);
     }
 
-    private function initialize()
+    /**
+     * @return object
+     */
+    private function getObject()
     {
         if ($this->object === null) {
             $this->object = call_user_func($this->callback);
         }
+
+        return $this->object;
     }
 }

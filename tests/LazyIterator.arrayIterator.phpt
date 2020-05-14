@@ -3,11 +3,11 @@
 require __DIR__ . '/bootstrap.php';
 
 $callback = function () {
-    return new ArrayIterator(array(1, 2, 3));
+    return new ArrayIterator([1, 2, 3]);
 };
 $iterator = new Sloth\LazyIterator($callback);
 
-$values = array();
+$values = [];
 foreach ($iterator as $value) {
     $values[] = $value;
 }
@@ -19,7 +19,7 @@ Assert::equal(3, $values[2]);
 
 
 $callback = function () {
-    return new ArrayIterator(array());
+    return new ArrayIterator([]);
 };
 $iterator = new Sloth\LazyIterator($callback);
 $values = iterator_to_array($iterator);

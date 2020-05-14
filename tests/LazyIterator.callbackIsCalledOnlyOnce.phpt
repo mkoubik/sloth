@@ -5,7 +5,7 @@ require __DIR__ . '/bootstrap.php';
 $countCalled = 0;
 $callback = function () use (&$countCalled) {
     $countCalled++;
-    return new ArrayIterator(array());
+    return new ArrayIterator([]);
 };
 $iterator = new Sloth\LazyIterator($callback);
 

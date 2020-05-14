@@ -14,4 +14,8 @@ $greeter = new \Sloth\LazyAccessor($callback);
 \Assert::equal('Hello world!', $greeter->sayHello('world'));
 \Assert::equal('Hello John!', $greeter->sayHello('John'));
 
+\Assert::throws(function () use ($greeter) {
+    $greeter->nonExistingMethod();
+}, TypeError::class);
+
 \Assert::equal(1, $countCalled);
