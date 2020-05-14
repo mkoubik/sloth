@@ -15,7 +15,7 @@ final class LazyIterator implements \IteratorAggregate, \Countable
     private $callback;
 
     /** @var ?iterable<TKey, TValue> */
-    private $iterator;
+    private ?iterable $iterator = null;
 
     /**
      * @param callable(): iterable<TKey, TValue> $callback

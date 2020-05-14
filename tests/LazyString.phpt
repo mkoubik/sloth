@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+use Sloth\LazyString;
+use SlothTests\Mocks\CountingCallback;
+
 require __DIR__ . '/bootstrap.php';
 
-$countCalled = 0;
-$callback = function () use (&$countCalled) {
-    $countCalled++;
-    return 'Hello world!';
-};
-$string = new Sloth\LazyString($callback);
+$callback = new CountingCallback(fn () => 'Hello world!');
+$string = new LazyString($callback);
 
 Assert::equal('Hello world!', (string) $string);
 Assert::equal('Hello world!', (string) $string);
 
-Assert::equal(1, $countCalled);
+Assert::equal(1, $callback->counter);

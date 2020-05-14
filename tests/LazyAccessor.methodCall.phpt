@@ -1,21 +1,20 @@
 <?php
 
+use Sloth\LazyAccessor;
+use SlothTests\Mocks\CountingCallback;
 use SlothTests\Mocks\Greeter;
 
 require __DIR__ . '/bootstrap.php';
 
-$countCalled = 0;
-$callback = function () use (&$countCalled) {
-    $countCalled++;
-    return new Greeter();
-};
-$greeter = new \Sloth\LazyAccessor($callback);
+$callback = new CountingCallback(fn () => new Greeter());
+$greeter = new LazyAccessor($callback);
 
-\Assert::equal('Hello world!', $greeter->sayHello('world'));
-\Assert::equal('Hello John!', $greeter->sayHello('John'));
+Assert::equal('Hello world!', $greeter->sayHello('world'));
+Assert::equal('Hello John!', $greeter->sayHello('John'));
 
-\Assert::throws(function () use ($greeter) {
-    $greeter->nonExistingMethod();
-}, TypeError::class);
+Assert::throws(
+    fn () => $greeter->nonExistingMethod(),
+    TypeError::class,
+);
 
-\Assert::equal(1, $countCalled);
+Assert::equal(1, $callback->counter);

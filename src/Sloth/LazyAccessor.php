@@ -12,8 +12,7 @@ final class LazyAccessor
     /** @var callable(): object */
     private $callback;
 
-    /** @var ?object */
-    private $object;
+    private ?object $object = null;
 
     /**
      * @param callable(): object $callback
@@ -64,10 +63,7 @@ final class LazyAccessor
         return call_user_func_array($callable, $arguments);
     }
 
-    /**
-     * @return object
-     */
-    private function getObject()
+    private function getObject(): object
     {
         if ($this->object === null) {
             $this->object = call_user_func($this->callback);

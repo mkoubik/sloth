@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+use Sloth\LazyAccessor;
+use SlothTests\Mocks\CountingCallback;
 use SlothTests\Mocks\Person;
 
 require __DIR__ . '/bootstrap.php';
 
-$countCalled = 0;
 $object = new Person('');
-$callback = function () use (&$countCalled, $object) {
-    $countCalled++;
-    return $object;
-};
-$person = new Sloth\LazyAccessor($callback);
+$callback = new CountingCallback(fn () => $object);
+$person = new LazyAccessor($callback);
 
 $person->name = 'John Doe';
 Assert::equal('John Doe', $object->name);
@@ -18,4 +18,4 @@ Assert::equal('John Doe', $object->name);
 $person->name = 'John Doe !!!';
 Assert::equal('John Doe !!!', $object->name);
 
-Assert::equal(1, $countCalled);
+Assert::equal(1, $callback->counter);

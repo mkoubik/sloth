@@ -9,8 +9,7 @@ final class LazyString
     /** @var callable(): string */
     private $callback;
 
-    /** @var ?string */
-    private $string;
+    private ?string $string = null;
 
     /**
      * @param callable(): string $callback

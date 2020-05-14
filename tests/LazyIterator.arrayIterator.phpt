@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
+use Sloth\LazyIterator;
+
 require __DIR__ . '/bootstrap.php';
 
-$callback = function () {
-    return new ArrayIterator([1, 2, 3]);
-};
-$iterator = new Sloth\LazyIterator($callback);
+$emptyIterator = new LazyIterator(fn () => new ArrayIterator([1, 2, 3]));
 
 $values = [];
-foreach ($iterator as $value) {
+foreach ($emptyIterator as $value) {
     $values[] = $value;
 }
 
@@ -18,11 +19,8 @@ Assert::equal(2, $values[1]);
 Assert::equal(3, $values[2]);
 
 
-$callback = function () {
-    return new ArrayIterator([]);
-};
-$iterator = new Sloth\LazyIterator($callback);
-$values = iterator_to_array($iterator);
+$emptyIterator = new LazyIterator(fn () => new ArrayIterator([]));
+$values = iterator_to_array($emptyIterator);
 
 Assert::true(empty($values));
-Assert::equal(0, count($iterator));
+Assert::equal(0, count($emptyIterator));

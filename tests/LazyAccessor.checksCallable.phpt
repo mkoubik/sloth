@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
+use Sloth\LazyAccessor;
+
 require __DIR__ . '/bootstrap.php';
 
-Assert::throws(function () {
-    new Sloth\LazyAccessor('not callable');
-}, TypeError::class);
+Assert::throws(
+    fn () => new LazyAccessor('not callable'),
+    TypeError::class,
+);

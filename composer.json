@@ -8,7 +8,7 @@
     ],
     "license": ["MIT"],
     "require": {
-        "php": ">=7.1"
+        "php": ">=7.4"
     },
     "require-dev": {
         "nette/tester": "^2.3",

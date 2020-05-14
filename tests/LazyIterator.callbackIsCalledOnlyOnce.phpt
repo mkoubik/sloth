@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
+use Sloth\LazyIterator;
+use SlothTests\Mocks\CountingCallback;
+
 require __DIR__ . '/bootstrap.php';
 
-$countCalled = 0;
-$callback = function () use (&$countCalled) {
-    $countCalled++;
-    return new ArrayIterator([]);
-};
-$iterator = new Sloth\LazyIterator($callback);
+$callback = new CountingCallback(fn () => new ArrayIterator([]));
+$iterator = new LazyIterator($callback);
 
 foreach ($iterator as $item) {
 }
 foreach ($iterator as $item) {
 }
 
-Assert::equal(1, $countCalled);
+Assert::equal(1, $callback->counter);

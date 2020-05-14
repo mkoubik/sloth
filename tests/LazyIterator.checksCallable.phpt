@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
+use Sloth\LazyIterator;
+
 require __DIR__ . '/bootstrap.php';
 
-Assert::throws(function () {
-    new Sloth\LazyIterator('not callable');
-}, TypeError::class);
+Assert::throws(
+    fn () => new LazyIterator('not callable'),
+    TypeError::class,
+);
