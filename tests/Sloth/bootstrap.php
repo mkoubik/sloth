@@ -1,9 +1,6 @@
 <?php
 
-if (@!include __DIR__ . '/../../vendor/autoload.php') {
-    echo 'Install Nette Tester using `composer update --dev`';
-    exit(1);
-}
+include __DIR__ . '/../../vendor/autoload.php';
 
 Tester\Environment::setup();
 class_alias('Tester\Assert', 'Assert');
