@@ -12,42 +12,39 @@ Usage
 ```php
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+use Sloth\LazyString;
 
-
-// LazyString:
-
-$string = new Sloth\LazyString(function() {
-	return 'Hello world!';
-});
+$string = new LazyString(fn () => 'Hello world!');
 
 echo $string; // callback is called at this point
 echo $string; // callback is not called any more
+```
 
+```php
+<?php
 
-// LazyIterator:
+use Sloth\LazyIterator;
 
-$iterator = new Sloth\LazyIterator(function() {
-	return range(1, 9999);
-});
+$iterator = new LazyIterator(fn () => range(1, 9999));
 
 foreach ($iterator as $number) { // callback is called at this point
-	echo $number . "\n";
+    echo $number . "\n";
 }
 
 echo count($iterator); // works too
+```
 
+```php
+<?php
 
-// LazyAccessor:
+use Sloth\LazyAccessor;
 
-$person = new Sloth\LazyAccessor(function() {
-	return new Person('John Doe');
-});
+$person = new LazyAccessor(fn () => new Person('John Doe'));
 
 echo $person->name; // callback is called at this point
 
 if (isset($person->name)) {
-	unset($person->name);
+    unset($person->name);
 }
 
 echo $person->setName('John Doe');
