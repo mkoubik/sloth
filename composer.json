@@ -2,10 +2,11 @@
     "name": "mkoubik/sloth",
     "authors": [
         {
-            "name": "Matej Koubik",
+            "name": "Matěj Koubík",
             "email": "matej@koubik.name"
         }
     ],
+    "license": ["MIT"],
     "require": {
         "php": ">=7.1"
     },
