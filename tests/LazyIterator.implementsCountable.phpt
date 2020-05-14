@@ -2,7 +2,7 @@
 
 require __DIR__ . '/bootstrap.php';
 
-$iterator = new Sloth\LazyIterator(function() {
+$iterator = new Sloth\LazyIterator(function () {
     return new ArrayIterator(array('a', 'b', 'c'));
 });
 

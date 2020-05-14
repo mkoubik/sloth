@@ -3,7 +3,7 @@
 require __DIR__ . '/bootstrap.php';
 
 $countCalled = 0;
-$callback = function() use (&$countCalled) {
+$callback = function () use (&$countCalled) {
     $countCalled++;
     return 'Hello world!';
 };

@@ -1,5 +1,7 @@
 Sloth
 =====
+![CI](https://github.com/mkoubik/sloth/workflows/CI/badge.svg)
+[![codecov](https://codecov.io/gh/mkoubik/Sloth/branch/master/graph/badge.svg)](https://codecov.io/gh/mkoubik/Sloth)
 
 Installation
 ------------

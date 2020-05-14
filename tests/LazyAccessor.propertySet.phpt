@@ -1,15 +1,12 @@
 <?php
 
+use SlothTests\Mocks\Person;
+
 require __DIR__ . '/bootstrap.php';
 
-class Person
-{
-    public $name = '';
-}
-
 $countCalled = 0;
-$object = new Person();
-$callback = function() use (&$countCalled, $object) {
+$object = new Person('');
+$callback = function () use (&$countCalled, $object) {
     $countCalled++;
     return $object;
 };
