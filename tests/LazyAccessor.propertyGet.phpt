@@ -1,16 +1,13 @@
 <?php
 
+use SlothTests\Mocks\Person;
+
 require __DIR__ . '/bootstrap.php';
 
-class Person
-{
-    public $name = 'John Doe';
-}
-
 $countCalled = 0;
-$callback = function() use (&$countCalled) {
+$callback = function () use (&$countCalled) {
     $countCalled++;
-    return new Person();
+    return new Person('John Doe');
 };
 $person = new Sloth\LazyAccessor($callback);
 
